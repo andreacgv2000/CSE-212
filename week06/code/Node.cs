@@ -6,25 +6,25 @@ public class Node
 
     public Node(int data)
     {
-        this.Data = data;
+        Data = data;
     }
 
     public void Insert(int value)
     {
-        // TODO Start Problem 1
+        // No duplicates rule
+        if (value == Data)
+            return;
 
         if (value < Data)
         {
-            // Insert to the left
-            if (Left is null)
+            if (Left == null)
                 Left = new Node(value);
             else
                 Left.Insert(value);
         }
         else
         {
-            // Insert to the right
-            if (Right is null)
+            if (Right == null)
                 Right = new Node(value);
             else
                 Right.Insert(value);
@@ -33,13 +33,24 @@ public class Node
 
     public bool Contains(int value)
     {
-        // TODO Start Problem 2
-        return false;
+        if (value == Data)
+            return true;
+
+        if (value < Data)
+        {
+            return Left != null && Left.Contains(value);
+        }
+        else
+        {
+            return Right != null && Right.Contains(value);
+        }
     }
 
     public int GetHeight()
     {
-        // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        int leftHeight = Left == null ? 0 : Left.GetHeight();
+        int rightHeight = Right == null ? 0 : Right.GetHeight();
+
+        return 1 + Math.Max(leftHeight, rightHeight);
     }
 }
